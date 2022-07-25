@@ -1,14 +1,17 @@
 const formioURL = 'https://test-d.detozgnrw.mms-at-work.de/formio/form'
+const sk_url =
+    "https://sknrwq.krzn.de/AutentIDConnect/sk/.well-known/openid-configuration";
 
-function req() {
+
+function req(url) {
     const request = new XMLHttpRequest()
-    request.open("GET", formioURL)
+    request.open("GET", url)
     request.setRequestHeader("Content-type", "applichation/json; charset=utf-8")
-    request.send()
-    request.addEventListener("load", function () {
+    request.send();
+    request.addEventListener("load", function() {
         let data = JSON.parse(request.response)
-        console.log(data)
-        if (request.status >= 200 && request.status <= 399) {
+        console.log('Formio.js', data)
+        if (request) {
             const icon = `<span class="material-icons-sharp">check</span>`
             data.forEach(element => {
                 const tr = document.createElement('tr')
@@ -21,7 +24,7 @@ function req() {
 
             });
 
-        } 
+        }
     })
 }
-req()
+req(formioURL)
